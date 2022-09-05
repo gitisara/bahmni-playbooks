@@ -13,13 +13,12 @@
   command: yum -y install python-psycopg2
 
 - name: Install postgresql
-  yum: name="postgresql{{postgres_bin_version}}-server" state=present
+  yum: name="postgresql{{postgres_bin_version}}-server.x86_64" state=present
 
 - name: Install postgresql-contrib
-  yum: name="postgresql{{postgres_bin_version}}-contrib" state=present
+  yum: name="postgresql{{postgres_bin_version}}-contrib.x86_64" state=present
 
 - name: Initiate database
-  command: /usr/pgsql-{{postgres_version}}/bin/postgresql{{postgres_bin_version}}-setup initdb creates=/var/lib/pgsql/{{postgres_version}}/data/postgresql.conf
 
 - set_fact: 
     master: "{{ (inventory_hostname in groups['bahmni-lab-db'] and (groups['bahmni-lab-db-slave'] is defined and groups['bahmni-lab-db-slave']|length > 0)) or
